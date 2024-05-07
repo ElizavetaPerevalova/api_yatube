@@ -1,8 +1,6 @@
-# 3 сериализатора по моделям
 from django.shortcuts import get_object_or_404
+from posts.models import Comment, Group, Post
 from rest_framework import serializers
-
-from posts.models import Group, Post, Comment
 
 
 class GroupSerializer(serializers.ModelSerializer):
