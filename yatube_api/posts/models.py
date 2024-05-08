@@ -1,11 +1,14 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from .constants import MAX_LENGTH
+
 User = get_user_model()
 
 
 class Group(models.Model):
-    title = models.CharField(max_length=200)
+    """Модель группы."""
+    title = models.CharField(max_length=MAX_LENGTH)
     slug = models.SlugField(unique=True)
     description = models.TextField()
 
@@ -14,6 +17,7 @@ class Group(models.Model):
 
 
 class Post(models.Model):
+    """Модель поста."""
     text = models.TextField()
     pub_date = models.DateTimeField(
         'Дата публикации', auto_now_add=True
@@ -23,7 +27,7 @@ class Post(models.Model):
     )
     image = models.ImageField(
         upload_to='posts/', null=True, blank=True
-    )  # поле для картинки
+    )
     group = models.ForeignKey(
         Group, on_delete=models.SET_NULL,
         related_name='posts', blank=True, null=True
@@ -34,6 +38,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    """Модель комментария."""
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='comments'
     )
